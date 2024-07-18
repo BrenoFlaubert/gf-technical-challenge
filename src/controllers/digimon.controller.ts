@@ -78,6 +78,13 @@ export class DigimonController implements IDigimonController {
       res.status(400).send({ message: 'Não foi possivel criar o digimon' });
     }
     try {
+      const digimon = await this.repository.findByName(name);
+      if (digimon?.[0].name === name) {
+        return res.status(400).send({
+          message: 'Não foi possivel criar o digimon, nome já existe.',
+        });
+      }
+      console.log(digimon?.[0].name);
       const result = await this.repository.insertOne({ name, img, level });
       return res.status(200).send({
         message: 'Digimon criado com sucesso!',
