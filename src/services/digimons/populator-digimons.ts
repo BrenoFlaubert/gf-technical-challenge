@@ -22,13 +22,13 @@ export class PopulatorDigimonService {
           await this.dbStrategy.insertOne("digimons", { name, img, level });
         })
       );
-      console.log('banco populado com sucesso!')
       return {
+        code: '200',
         message: "Banco populado com sucesso!"
       }
     } catch (error) {
-      console.log('Não foi possivel popular o banco')
       return {
+        code: '500',
         message: `Não foi possível popular o banco`,
         error: `${error}`
       }
