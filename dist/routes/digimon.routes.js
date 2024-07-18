@@ -130,12 +130,7 @@ router.get("/level/:level", (req, res) => __awaiter(void 0, void 0, void 0, func
  *       content:
  *         application/json:
  *           schema:
- *              name:
- *                type: string
- *              img:
- *                type: string
- *              level:
- *                 type: string
+ *             $ref: '#/components/schemas/Digimon'
  *     responses:
  *       200:
  *         description: Digimon criado com sucesso!
@@ -167,12 +162,7 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
  *       content:
  *         application/json:
  *           schema:
- *              name:
- *                type: string
- *              img:
- *                type: string
- *              level:
- *                 type: string
+ *             $ref: '#/components/schemas/Digimon'
  *     responses:
  *       200:
  *         description: Digimon atualizado

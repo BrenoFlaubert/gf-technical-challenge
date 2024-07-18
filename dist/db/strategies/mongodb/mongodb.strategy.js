@@ -8,17 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MongoStrategy = void 0;
 const mongodb_1 = require("mongodb");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 class MongoStrategy {
     constructor(databaseName) {
         this.databaseName = databaseName;
     }
     connect() {
         return __awaiter(this, void 0, void 0, function* () {
-            const databaseUrl = "mongodb://root:password@localhost:27017";
+            const databaseUrl = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@localhost:27017`;
             const mongodb = new mongodb_1.MongoClient(databaseUrl);
             try {
                 yield mongodb.connect();
