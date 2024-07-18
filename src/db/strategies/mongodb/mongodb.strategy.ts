@@ -34,15 +34,15 @@ export class MongoStrategy implements IDigimonStrategy {
         const result = await this.db?.collection(collectionName).find({level: level}).toArray()
         return result
     }
-    async findById(collectionName: string, id: string): Promise<any> {
+    async findById(collectionName: string, id: string): Promise<ObjectId | undefined> {
         const result = await this.db?.collection(collectionName).findOne({_id: new ObjectId(id)})
         return result?._id
     }
-    async insertOne(collectionName: string, data: any): Promise<any> {
+    async insertOne(collectionName: string, data: any): Promise<ObjectId | undefined> {
         const result = await this.db?.collection(collectionName).insertOne(data)
         return result?.insertedId
     }
-    async updateOne(collectionName: string, id: string, data?: any): Promise<any> {
+    async updateOne(collectionName: string, id: string, data?: any): Promise<number | undefined> {
         const result = await this.db?.collection(collectionName).updateOne({_id: new ObjectId(id)}, {
             $set: {
                 ...data
@@ -50,7 +50,7 @@ export class MongoStrategy implements IDigimonStrategy {
         })
         return result?.modifiedCount
     }
-    async deleteOne(collectionName: string, id: string): Promise<any> {
+    async deleteOne(collectionName: string, id: string): Promise<number | undefined> {
         const result = await this.db?.collection(collectionName).deleteOne({_id: new ObjectId(id)})
         return result?.deletedCount
     }

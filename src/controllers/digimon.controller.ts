@@ -4,11 +4,11 @@ import { Request, Response } from "express";
 
 interface IDigimonController {
   findAll(req: Request, res: Response): Promise<void>
-  findByName(req: Request, res: Response): Promise<any>
-  findByLevel(req: Request, res: Response): Promise<any>
-  insertOne(req: Request, res: Response): Promise<any>
-  updateOne(req: Request, res: Response): Promise<any>
-  deleteOne(req: Request, res: Response): Promise<any>
+  findByName(req: Request, res: Response): Promise<void>
+  findByLevel(req: Request, res: Response): Promise<void>
+  insertOne(req: Request, res: Response): Promise<void>
+  updateOne(req: Request, res: Response): Promise<void>
+  deleteOne(req: Request, res: Response): Promise<void>
 }
 
 export class DigimonController implements IDigimonController {
@@ -23,11 +23,11 @@ export class DigimonController implements IDigimonController {
       res.status(500).send({ message: "Não foi possivel listar os digimons" });
     }
   }
-  async findByName(req: Request, res: Response): Promise<any> {
+  async findByName(req: Request, res: Response): Promise<void> {
     const { name } = req.params;
     if (!name) {
       res.status(404).send({
-        message: "Cannot GET /api/digimon/name",
+        message: "Path invalido - GET /api/digimon/name",
       });
     }
     try {
@@ -38,11 +38,11 @@ export class DigimonController implements IDigimonController {
       res.status(500).send({ message: "Não foi possivel listar os digimons" });
     }
   }
-  async findByLevel(req: Request, res: Response): Promise<any> {
+  async findByLevel(req: Request, res: Response): Promise<void> {
     const { level } = req.params;
     if (!level) {
       res.status(404).send({
-        message: "Cannot GET /api/digimon/level",
+        message: "Path invalido - GET /api/digimon/level",
       });
     }
     try {
@@ -53,7 +53,7 @@ export class DigimonController implements IDigimonController {
       res.status(500).send({ message: "Não foi possivel listar os digimons" });
     }
   }
-  async insertOne(req: Request, res: Response): Promise<any> {
+  async insertOne(req: Request, res: Response): Promise<void> {
     const { name, img, level } = req.body
     if(!name && !img && !level){
         res.status(400).send({ message: "Não foi possivel criar o digimon" });
@@ -71,7 +71,7 @@ export class DigimonController implements IDigimonController {
         });
     }
   }
-  async updateOne(req: Request, res: Response): Promise<any> {
+  async updateOne(req: Request, res: Response): Promise<void> {
     const { id } = req.params
     const data = req.body
     if(!id){
@@ -83,7 +83,7 @@ export class DigimonController implements IDigimonController {
     if(idExists){
       try {
         const result = await this.repository.updateOne(id, data)
-        if(result > 0){
+        if(result != undefined && result > 0){
           res.status(200).send({
             messsage: "Digimon atualizado com sucesso!", 
             modifiedCount: result
@@ -97,7 +97,7 @@ export class DigimonController implements IDigimonController {
       }
     }
   }
-  async deleteOne(req: Request, res: Response): Promise<any> {
+  async deleteOne(req: Request, res: Response): Promise<void> {
     const { id } = req.params
     if(!id){
       res.status(400).send({ message: "Não é possivel deletar um digimon sem informar o id" });

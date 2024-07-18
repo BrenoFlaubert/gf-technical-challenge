@@ -31,7 +31,7 @@ class DigimonController {
             const { name } = req.params;
             if (!name) {
                 res.status(404).send({
-                    message: "Cannot GET /api/digimon/name",
+                    message: "Path invalido - GET /api/digimon/name",
                 });
             }
             try {
@@ -49,7 +49,7 @@ class DigimonController {
             const { level } = req.params;
             if (!level) {
                 res.status(404).send({
-                    message: "Cannot GET /api/digimon/level",
+                    message: "Path invalido - GET /api/digimon/level",
                 });
             }
             try {
@@ -96,7 +96,7 @@ class DigimonController {
             if (idExists) {
                 try {
                     const result = yield this.repository.updateOne(id, data);
-                    if (result > 0) {
+                    if (result != undefined && result > 0) {
                         res.status(200).send({
                             messsage: "Digimon atualizado com sucesso!",
                             modifiedCount: result
