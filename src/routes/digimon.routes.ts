@@ -1,19 +1,19 @@
-import { Router, Request, Response } from 'express'
-import { MongoStrategy } from '../db/strategies/mongodb/mongodb.strategy'
-import { DigimonRepository } from '../repositories/digimon.repository'
-import { DigimonController } from '../controllers/digimon.controller'
-import { PopulatorDigimonService } from '../services/digimons/populator-digimons'
+import { Router, Request, Response } from 'express';
+import { MongoStrategy } from '../db/strategies/mongodb/mongodb.strategy';
+import { DigimonRepository } from '../repositories/digimon.repository';
+import { DigimonController } from '../controllers/digimon.controller';
+import { PopulatorDigimonService } from '../services/digimons/populator-digimons';
 
-const database = new MongoStrategy('challenge')
-database.connect()
+const database = new MongoStrategy('challenge');
+database.connect();
 
-const digimonService = new PopulatorDigimonService(database)
-digimonService.populateDatabase()
+const digimonService = new PopulatorDigimonService(database);
+digimonService.populateDatabase();
 
-const digimonRepository = new DigimonRepository(database)
-const digimonController = new DigimonController(digimonRepository)
+const digimonRepository = new DigimonRepository(database);
+const digimonController = new DigimonController(digimonRepository);
 
-const router = Router()
+const router = Router();
 /**
  * @swagger
  * components:
@@ -32,7 +32,7 @@ const router = Router()
  *           type: string
  *         img:
  *           type: string
- *         level: 
+ *         level:
  *           type: string
  *     NewDigimon:
  *       type: object
@@ -45,7 +45,7 @@ const router = Router()
  *           type: string
  *         img:
  *           type: string
- *         level: 
+ *         level:
  *           type: string
  */
 
@@ -72,8 +72,8 @@ const router = Router()
  *               items:
  *                 $ref: '#/components/schemas/Digimon'
  */
-router.get("/", async (req: Request, res: Response) => {
-    await digimonController.findAll(req, res)
+router.get('/', async (req: Request, res: Response) => {
+  await digimonController.findAll(req, res);
 });
 /**
  * @swagger
@@ -98,8 +98,8 @@ router.get("/", async (req: Request, res: Response) => {
  *               items:
  *                 $ref: '#/components/schemas/Digimon'
  */
-router.get("/name/:name", async (req: Request, res: Response) => {
-    await digimonController.findByName(req, res)
+router.get('/name/:name', async (req: Request, res: Response) => {
+  await digimonController.findByName(req, res);
 });
 /**
  * @swagger
@@ -124,8 +124,8 @@ router.get("/name/:name", async (req: Request, res: Response) => {
  *               items:
  *                 $ref: '#/components/schemas/Digimon'
  */
-router.get("/level/:level", async (req: Request, res: Response) => {
-  await digimonController.findByLevel(req, res)
+router.get('/level/:level', async (req: Request, res: Response) => {
+  await digimonController.findByLevel(req, res);
 });
 /**
  * @swagger
@@ -150,8 +150,8 @@ router.get("/level/:level", async (req: Request, res: Response) => {
  *         description: Some server error
  */
 router.post('/', async (req: Request, res: Response) => {
-    await digimonController.insertOne(req, res)
-})
+  await digimonController.insertOne(req, res);
+});
 /**
  * @swagger
  * /digimon/{id}:
@@ -183,9 +183,9 @@ router.post('/', async (req: Request, res: Response) => {
  *       500:
  *         description: Algo de errado aconteceu
  */
-router.patch("/:id", async (req: Request, res: Response) => {
-    await digimonController.updateOne(req, res)
-})
+router.patch('/:id', async (req: Request, res: Response) => {
+  await digimonController.updateOne(req, res);
+});
 /**
  * @swagger
  * /digimon/{id}:
@@ -205,8 +205,8 @@ router.patch("/:id", async (req: Request, res: Response) => {
  *       404:
  *         description: Digimon não encontrado
  */
-router.delete("/:id", async (req: Request, res: Response) => {
-    await digimonController.deleteOne(req, res)
-})
+router.delete('/:id', async (req: Request, res: Response) => {
+  await digimonController.deleteOne(req, res);
+});
 
-export default router
+export default router;
