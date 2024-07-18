@@ -1,8 +1,9 @@
+import { Digimon } from "../models/digimon.model";
 import { IDigimonRepository } from "../repositories/digimon.repository";
 import { Request, Response } from "express";
 
 interface IDigimonController {
-  findAll(req: Request, res: Response): Promise<any>
+  findAll(req: Request, res: Response): Promise<void>
   findByName(req: Request, res: Response): Promise<any>
   findByLevel(req: Request, res: Response): Promise<any>
   insertOne(req: Request, res: Response): Promise<any>
@@ -13,7 +14,7 @@ interface IDigimonController {
 export class DigimonController implements IDigimonController {
   constructor(private repository: IDigimonRepository) {}
 
-  async findAll(req: Request, res: Response): Promise<any> {
+  async findAll(req: Request, res: Response): Promise<void> {
     try {
       const result = await this.repository.findAll();
       res.status(200).send(result);
@@ -88,7 +89,6 @@ export class DigimonController implements IDigimonController {
             modifiedCount: result
           })
         }
-        return;
       } catch (error) {
         console.error("Error", error);
         res.status(500).send({ 
@@ -110,7 +110,6 @@ export class DigimonController implements IDigimonController {
           messsage: "Digimon deletado com sucesso!", 
           deletedCount: result
         })
-        return false;
       } catch (error) {
         console.error("Error", error);
         res.status(500).send({ 

@@ -102,7 +102,6 @@ class DigimonController {
                             modifiedCount: result
                         });
                     }
-                    return;
                 }
                 catch (error) {
                     console.error("Error", error);
@@ -127,7 +126,6 @@ class DigimonController {
                         messsage: "Digimon deletado com sucesso!",
                         deletedCount: result
                     });
-                    return false;
                 }
                 catch (error) {
                     console.error("Error", error);

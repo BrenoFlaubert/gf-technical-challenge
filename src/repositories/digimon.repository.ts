@@ -1,8 +1,9 @@
 import { IDigimonStrategy } from "../db/strategies/interfaces/IDigimonStrategy";
+import { Digimon } from "../models/digimon.model";
 
 export interface IDigimonRepository {
     findById(id: string): Promise<any>
-    findAll(data?: any): Promise<any>
+    findAll(data?: any): Promise<Digimon[]>
     findByName(name: string): Promise<any>
     findByLevel(level: string): Promise<any>
     insertOne(data?: any): Promise<any>
@@ -22,7 +23,7 @@ export class DigimonRepository implements IDigimonRepository {
     deleteOne(id: string): Promise<any> {
         return this.dbStrategy.deleteOne(this.collectionName, id)
     }
-    findAll(data?: any): Promise<any> {
+    findAll(data?: any): Promise<Digimon[]> {
         return this.dbStrategy.findAll(this.collectionName)
     }
     findByName(name: string): Promise<any> {
