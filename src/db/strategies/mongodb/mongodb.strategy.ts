@@ -1,6 +1,7 @@
 import { Db, MongoClient, ObjectId } from "mongodb";
 import { IDigimonStrategy } from "../interfaces/IDigimonStrategy";
-const {DB_USER, DB_PASSWORD, DB_HOST  } = process.env
+import dotenv from 'dotenv'
+dotenv.config()
 
 export class MongoStrategy implements IDigimonStrategy {
     public databaseName: string;
@@ -10,7 +11,7 @@ export class MongoStrategy implements IDigimonStrategy {
     }
 
     async connect(): Promise<void> {
-        const databaseUrl = "mongodb://root:password@localhost:27017"
+        const databaseUrl = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@localhost:27017`
         const mongodb = new MongoClient(databaseUrl)
         try {
             await mongodb.connect()
