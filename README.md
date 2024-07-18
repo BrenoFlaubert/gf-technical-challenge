@@ -21,6 +21,12 @@ Este documento descreve a aplicação que consome uma API externa para obter dad
 - Docker
 - Docker compose
 
+### crie um arquivo `.env` na raiz do projeto e preencha as variaveis
+
+EXPRESS_PORT=
+MONGO_USER=
+MONGO_PASSWORD=
+
 ### Para rodar a aplicação:
 
 1. docker compose up -d --build
@@ -29,4 +35,4 @@ Este documento descreve a aplicação que consome uma API externa para obter dad
 
 3. npm run start
 
-4. Acesse: http://localhost:3000
+4. Acesse: http://localhost:EXPRESS_PORT
