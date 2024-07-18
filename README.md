@@ -1,4 +1,4 @@
-## Documentação do Teste Técnico - Digimons API
+## Digimons API
 
 ### Introdução
 
@@ -13,26 +13,52 @@ Este documento descreve a aplicação que consome uma API externa para obter dad
 - **MongoDB**: Banco de dados NoSQL orientado a documentos.
 - **Docker**: Plataforma para desenvolvimento, envio e execução de aplicações em containers.
 - **Docker Compose**: Ferramenta para definir e gerenciar multi-containers Docker.
-- **Swagger e Swagger-UI**: Ferramenta para doumentar e testar o projeto.
+- **Swagger e Swagger-UI**: Ferramenta para documentar e testar o projeto.
 
-### #Pré requisitos
+### Pré-requisitos
 
-- Node v18 ou superior
+- Node.js v18 ou superior
 - Docker
-- Docker compose
+- Docker Compose
 
-### crie um arquivo `.env` na raiz do projeto e preencha as variaveis
+### Configuração do Ambiente
 
-EXPRESS_PORT=
-MONGO_USER=
-MONGO_PASSWORD=
+1. Crie um arquivo `.env` na raiz do projeto com as seguintes informações de exemplo:
+
+   ```env
+   EXPRESS_PORT=3000
+   MONGO_USER=root
+   MONGO_PASSWORD=senhasecreta1234
+   ```
 
 ### Para rodar a aplicação:
 
-1. docker compose up -d --build
+1. Construa e inicie os containers Docker:
 
-2. npm run build
+   ```bash
+   docker compose up -d --build
+   ```
 
-3. npm run start
+2. Compile a aplicação:
 
-4. Acesse: http://localhost:EXPRESS_PORT
+   ```bash
+   npm run build
+   ```
+
+3. Inicie a aplicação:
+
+   ```bash
+   npm run start
+   ```
+
+4. Acesse a aplicação no navegador:
+
+   ```
+   http://localhost:3000
+   ```
+
+5. A documentação da API está disponível no Swagger:
+
+   ```
+   http://localhost:3000/api-docs
+   ```
