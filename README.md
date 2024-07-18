@@ -14,6 +14,7 @@ Este documento descreve a aplicação que consome uma API externa para obter dad
 - **Docker**: Plataforma para desenvolvimento, envio e execução de aplicações em containers.
 - **Docker Compose**: Ferramenta para definir e gerenciar multi-containers Docker.
 - **Swagger e Swagger-UI**: Ferramenta para documentar e testar o projeto.
+- **Jest**: Ferramenta para realizar testes automatizados.
 
 ### Pré-requisitos
 
@@ -31,7 +32,7 @@ Este documento descreve a aplicação que consome uma API externa para obter dad
    MONGO_PASSWORD=senhasecreta1234
    ```
 
-### Para rodar a aplicação:
+### Execução da aplicação:
 
 1. Construa e inicie os containers Docker:
 
@@ -62,8 +63,14 @@ Este documento descreve a aplicação que consome uma API externa para obter dad
    http://localhost:3000
    ```
 
-6. A documentação da API está disponível no Swagger:
+### Documentação da aplicação:
 
    ```
    http://localhost:3000/api-docs
+   ```
+
+### Como testar a aplicação:
+
+   ```bash
+   npm run test
    ```
