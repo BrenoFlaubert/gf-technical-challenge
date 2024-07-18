@@ -26,14 +26,27 @@ const router = Router()
  *         - img
  *         - level
  *       properties:
- *         id:
+ *         _id:
  *           type: string
  *         name:
  *           type: string
  *         img:
  *           type: string
  *         level: 
- *            type: string
+ *           type: string
+ *     NewDigimon:
+ *       type: object
+ *       required:
+ *         - name
+ *         - img
+ *         - level
+ *       properties:
+ *         name:
+ *           type: string
+ *         img:
+ *           type: string
+ *         level: 
+ *           type: string
  */
 
 /**
@@ -125,7 +138,7 @@ router.get("/level/:level", async (req: Request, res: Response) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Digimon'
+ *             $ref: '#/components/schemas/NewDigimon'
  *     responses:
  *       200:
  *         description: Digimon criado com sucesso!

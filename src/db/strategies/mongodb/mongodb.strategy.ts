@@ -1,6 +1,7 @@
 import { Db, MongoClient, ObjectId } from "mongodb";
-import { IDigimonStrategy } from "../interfaces/IDigimonStrategy";
+import { IDigimonStrategy, newDigimon } from "../interfaces/IDigimonStrategy";
 import dotenv from 'dotenv'
+import { Digimon } from "../../../models/digimon.model";
 dotenv.config()
 
 export class MongoStrategy implements IDigimonStrategy {
@@ -38,11 +39,11 @@ export class MongoStrategy implements IDigimonStrategy {
         const result = await this.db?.collection(collectionName).findOne({_id: new ObjectId(id)})
         return result?._id
     }
-    async insertOne(collectionName: string, data: any): Promise<ObjectId | undefined> {
+    async insertOne(collectionName: string, data: newDigimon): Promise<ObjectId | undefined> {
         const result = await this.db?.collection(collectionName).insertOne(data)
         return result?.insertedId
     }
-    async updateOne(collectionName: string, id: string, data?: any): Promise<number | undefined> {
+    async updateOne(collectionName: string, id: string, data?: Digimon): Promise<number | undefined> {
         const result = await this.db?.collection(collectionName).updateOne({_id: new ObjectId(id)}, {
             $set: {
                 ...data
