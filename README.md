@@ -38,26 +38,31 @@ Este documento descreve a aplicação que consome uma API externa para obter dad
    ```bash
    docker compose up -d --build
    ```
+2. Instale as dependências:
 
-2. Compile a aplicação:
+   ```bash
+   npm install
+   ```
+
+3. Compile a aplicação:
 
    ```bash
    npm run build
    ```
 
-3. Inicie a aplicação:
+4. Inicie a aplicação:
 
    ```bash
    npm run start
    ```
 
-4. Acesse a aplicação no navegador:
+5. Acesse a aplicação no navegador: ( lembre-se da configuração do .env )
 
    ```
    http://localhost:3000
    ```
 
-5. A documentação da API está disponível no Swagger:
+6. A documentação da API está disponível no Swagger:
 
    ```
    http://localhost:3000/api-docs
