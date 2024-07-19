@@ -9,7 +9,7 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: ' GF challenge - Digimons API - Swagger documentation',
+            title: '🚀 GF challenge - Digimons API - Swagger documentation.',
             version: '1.0.0',
         },
     },
