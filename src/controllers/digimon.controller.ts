@@ -77,24 +77,24 @@ export class DigimonController implements IDigimonController {
     if (!name && !img && !level) {
       res.status(400).send({ message: 'Não foi possivel criar o digimon' });
     }
-    try {
-      const digimon = await this.repository.findByName(name);
-      if (digimon?.[0].name === name) {
-        return res.status(400).send({
-          message: 'Não foi possivel criar o digimon, nome já existe.',
+    const result = await this.repository.findByName(name);
+    if (result?.length !== undefined && result.length > 0) {
+      return res.status(400).send({
+        message: 'Já existe um digimon com esse nome!'
+      });
+    } else {
+      try {
+        const result = await this.repository.insertOne({ name, img, level });
+        return res.status(201).send({
+          message: 'Digimon criado com sucesso!',
+          result: result,
+        });
+      } catch (error) {
+        console.error('Error', error);
+        return res.status(500).send({
+          message: 'Não foi possivel criar o digimon',
         });
       }
-      console.log(digimon?.[0].name);
-      const result = await this.repository.insertOne({ name, img, level });
-      return res.status(200).send({
-        message: 'Digimon criado com sucesso!',
-        result: result,
-      });
-    } catch (error) {
-      console.error('Error', error);
-      return res.status(500).send({
-        message: 'Não foi possivel criar o digimon',
-      });
     }
   }
   async updateOne(
@@ -109,12 +109,18 @@ export class DigimonController implements IDigimonController {
       });
     }
     const idExists = await this.repository.findById(id);
+    const result = await this.repository.findByName(data.name);
+    if (result?.length !== undefined && result.length > 0) {
+      return res.status(400).send({
+        message: 'Já existe um digimon com esse nome!'
+      });
+    }
     if (idExists) {
       try {
         const result = await this.repository.updateOne(id, data);
         if (result != undefined && result > 0) {
           return res.status(200).send({
-            messsage: 'Digimon atualizado com sucesso!',
+            message: 'Digimon atualizado com sucesso!',
             modifiedCount: result,
           });
         }
@@ -142,7 +148,7 @@ export class DigimonController implements IDigimonController {
       try {
         const result = await this.repository.deleteOne(id);
         return res.status(200).send({
-          messsage: 'Digimon deletado com sucesso!',
+          message: 'Digimon deletado com sucesso!',
           deletedCount: result,
         });
       } catch (error) {

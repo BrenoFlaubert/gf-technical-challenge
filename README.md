@@ -14,7 +14,7 @@ Este documento descreve a aplicação que consome uma API externa para obter dad
 - **Docker**: Plataforma para desenvolvimento, envio e execução de aplicações em containers.
 - **Docker Compose**: Ferramenta para definir e gerenciar multi-containers Docker.
 - **Swagger e Swagger-UI**: Ferramenta para documentar e testar o projeto.
-- **Jest**: Ferramenta para realizar testes automatizados.
+- **Jest e Supertest**: Ferramenta para realizar testes automatizados.
 
 ### Pré-requisitos
 
