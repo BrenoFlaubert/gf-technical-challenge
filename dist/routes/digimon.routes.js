@@ -33,14 +33,27 @@ const router = (0, express_1.Router)();
  *         - img
  *         - level
  *       properties:
- *         id:
+ *         _id:
  *           type: string
  *         name:
  *           type: string
  *         img:
  *           type: string
  *         level:
- *            type: string
+ *           type: string
+ *     NewDigimon:
+ *       type: object
+ *       required:
+ *         - name
+ *         - img
+ *         - level
+ *       properties:
+ *         name:
+ *           type: string
+ *         img:
+ *           type: string
+ *         level:
+ *           type: string
  */
 /**
  * @swagger
@@ -64,7 +77,7 @@ const router = (0, express_1.Router)();
  *               items:
  *                 $ref: '#/components/schemas/Digimon'
  */
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield digimonController.findAll(req, res);
 }));
 /**
@@ -90,7 +103,7 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
  *               items:
  *                 $ref: '#/components/schemas/Digimon'
  */
-router.get("/name/:name", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/name/:name', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield digimonController.findByName(req, res);
 }));
 /**
@@ -116,7 +129,7 @@ router.get("/name/:name", (req, res) => __awaiter(void 0, void 0, void 0, functi
  *               items:
  *                 $ref: '#/components/schemas/Digimon'
  */
-router.get("/level/:level", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/level/:level', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield digimonController.findByLevel(req, res);
 }));
 /**
@@ -130,7 +143,7 @@ router.get("/level/:level", (req, res) => __awaiter(void 0, void 0, void 0, func
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Digimon'
+ *             $ref: '#/components/schemas/NewDigimon'
  *     responses:
  *       200:
  *         description: Digimon criado com sucesso!
@@ -175,7 +188,7 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
  *       500:
  *         description: Algo de errado aconteceu
  */
-router.patch("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.patch('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield digimonController.updateOne(req, res);
 }));
 /**
@@ -197,7 +210,7 @@ router.patch("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* (
  *       404:
  *         description: Digimon não encontrado
  */
-router.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield digimonController.deleteOne(req, res);
 }));
 exports.default = router;

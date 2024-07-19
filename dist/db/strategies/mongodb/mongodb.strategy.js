@@ -74,7 +74,7 @@ class MongoStrategy {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
             const result = yield ((_a = this.db) === null || _a === void 0 ? void 0 : _a.collection(collectionName).updateOne({ _id: new mongodb_1.ObjectId(id) }, {
-                $set: Object.assign({}, data)
+                $set: Object.assign({}, data),
             }));
             return result === null || result === void 0 ? void 0 : result.modifiedCount;
         });

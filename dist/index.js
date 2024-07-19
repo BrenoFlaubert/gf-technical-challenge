@@ -16,7 +16,7 @@ app_1.default.use('/digimon', digimon_routes_1.default);
 app_1.default.get('/', (req, res) => {
     res.send({
         wellcome: 'GF Challenge - Digimons API',
-        documentation: `http://localhost:${port}/api-docs`
+        documentation: `http://localhost:${port}/api-docs`,
     });
 });
 app_1.default.listen(port, () => {

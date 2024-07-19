@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PopulatorDigimonService = void 0;
 const axios_1 = __importDefault(require("axios"));
-const SERVICE_URL = "https://digimon-api.vercel.app/api/digimon";
+const SERVICE_URL = 'https://digimon-api.vercel.app/api/digimon';
 class PopulatorDigimonService {
     constructor(dbStrategy) {
         this.dbStrategy = dbStrategy;
@@ -24,23 +24,23 @@ class PopulatorDigimonService {
             try {
                 const response = yield axios_1.default.get(`${SERVICE_URL}`);
                 if (!Array.isArray(response.data)) {
-                    throw new Error("Os dados retornados da API não são um array.");
+                    throw new Error('Os dados retornados da API não são um array.');
                 }
                 const digimons = response.data;
                 yield Promise.all(digimons.map((digimon) => __awaiter(this, void 0, void 0, function* () {
                     const { name, img, level } = digimon;
-                    yield this.dbStrategy.insertOne("digimons", { name, img, level });
+                    yield this.dbStrategy.insertOne('digimons', { name, img, level });
                 })));
-                console.log('banco populado com sucesso!');
                 return {
-                    message: "Banco populado com sucesso!"
+                    code: '200',
+                    message: 'Banco populado com sucesso!',
                 };
             }
             catch (error) {
-                console.log('Não foi possivel popular o banco');
                 return {
+                    code: '500',
                     message: `Não foi possível popular o banco`,
-                    error: `${error}`
+                    error: `${error}`,
                 };
             }
         });

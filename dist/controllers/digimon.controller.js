@@ -18,11 +18,13 @@ class DigimonController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield this.repository.findAll();
-                res.status(200).send(result);
+                return res.status(200).send(result);
             }
             catch (error) {
-                console.error("Error", error);
-                res.status(500).send({ message: "Não foi possivel listar os digimons" });
+                console.error('Error', error);
+                return res
+                    .status(500)
+                    .send({ message: 'Não foi possivel listar os digimons' });
             }
         });
     }
@@ -30,17 +32,26 @@ class DigimonController {
         return __awaiter(this, void 0, void 0, function* () {
             const { name } = req.params;
             if (!name) {
-                res.status(404).send({
-                    message: "Path invalido - GET /api/digimon/name",
+                return res.status(404).send({
+                    message: 'Path invalido - GET /api/digimon/name',
                 });
             }
             try {
                 const result = yield this.repository.findByName(name);
-                res.status(200).send(result);
+                if ((result === null || result === void 0 ? void 0 : result.length) !== undefined && result.length > 0) {
+                    return res.status(200).send(result);
+                }
+                else {
+                    return res.status(400).send({
+                        message: 'Não encontramos nenhum digimon com esse nome',
+                    });
+                }
             }
             catch (error) {
-                console.error("Error", error);
-                res.status(500).send({ message: "Não foi possivel listar os digimons" });
+                console.error('Error', error);
+                return res.status(500).send({
+                    message: 'Não foi possivel listar os digimons',
+                });
             }
         });
     }
@@ -49,16 +60,25 @@ class DigimonController {
             const { level } = req.params;
             if (!level) {
                 res.status(404).send({
-                    message: "Path invalido - GET /api/digimon/level",
+                    message: 'Path invalido - GET /api/digimon/level',
                 });
             }
             try {
                 const result = yield this.repository.findByLevel(level);
-                res.status(200).send(result);
+                if ((result === null || result === void 0 ? void 0 : result.length) !== undefined && result.length > 0) {
+                    return res.status(200).send(result);
+                }
+                else {
+                    return res.status(400).send({
+                        message: 'Não encontramos nenhum digimon com esse nivel',
+                    });
+                }
             }
             catch (error) {
-                console.error("Error", error);
-                res.status(500).send({ message: "Não foi possivel listar os digimons" });
+                console.error('Error', error);
+                return res
+                    .status(500)
+                    .send({ message: 'Não foi possivel listar os digimons' });
             }
         });
     }
@@ -66,20 +86,28 @@ class DigimonController {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, img, level } = req.body;
             if (!name && !img && !level) {
-                res.status(400).send({ message: "Não foi possivel criar o digimon" });
+                res.status(400).send({ message: 'Não foi possivel criar o digimon' });
             }
-            try {
-                const result = yield this.repository.insertOne({ name, img, level });
-                res.status(200).send({
-                    message: "Digimon criado com sucesso!",
-                    result: result
+            const result = yield this.repository.findByName(name);
+            if ((result === null || result === void 0 ? void 0 : result.length) !== undefined && result.length > 0) {
+                return res.status(400).send({
+                    message: 'Já existe um digimon com esse nome!'
                 });
             }
-            catch (error) {
-                console.error("Error", error);
-                res.status(500).send({
-                    message: "Não foi possivel criar o digimon"
-                });
+            else {
+                try {
+                    const result = yield this.repository.insertOne({ name, img, level });
+                    return res.status(201).send({
+                        message: 'Digimon criado com sucesso!',
+                        result: result,
+                    });
+                }
+                catch (error) {
+                    console.error('Error', error);
+                    return res.status(500).send({
+                        message: 'Não foi possivel criar o digimon',
+                    });
+                }
             }
         });
     }
@@ -88,27 +116,38 @@ class DigimonController {
             const { id } = req.params;
             const data = req.body;
             if (!id) {
-                res.status(400).send({
-                    message: "Não é possivel atualizar um digimon sem informar o id"
+                return res.status(400).send({
+                    message: 'Não é possivel atualizar um digimon sem informar o id',
                 });
             }
             const idExists = yield this.repository.findById(id);
+            const result = yield this.repository.findByName(data.name);
+            if ((result === null || result === void 0 ? void 0 : result.length) !== undefined && result.length > 0) {
+                return res.status(400).send({
+                    message: 'Já existe um digimon com esse nome!'
+                });
+            }
             if (idExists) {
                 try {
                     const result = yield this.repository.updateOne(id, data);
                     if (result != undefined && result > 0) {
-                        res.status(200).send({
-                            messsage: "Digimon atualizado com sucesso!",
-                            modifiedCount: result
+                        return res.status(200).send({
+                            message: 'Digimon atualizado com sucesso!',
+                            modifiedCount: result,
                         });
                     }
                 }
                 catch (error) {
-                    console.error("Error", error);
-                    res.status(500).send({
-                        message: "Não foi possivel atualizar o digimon",
+                    console.error('Error', error);
+                    return res.status(500).send({
+                        message: 'Não foi possivel atualizar o digimon',
                     });
                 }
+            }
+            else {
+                return res.status(400).send({
+                    message: 'O id informado não foi encontrado.',
+                });
             }
         });
     }
@@ -116,23 +155,30 @@ class DigimonController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             if (!id) {
-                res.status(400).send({ message: "Não é possivel deletar um digimon sem informar o id" });
+                return res.status(400).send({
+                    message: 'Não é possivel deletar um digimon sem informar o id',
+                });
             }
             const idExists = yield this.repository.findById(id);
             if (idExists) {
                 try {
                     const result = yield this.repository.deleteOne(id);
-                    res.status(200).send({
-                        messsage: "Digimon deletado com sucesso!",
-                        deletedCount: result
+                    return res.status(200).send({
+                        message: 'Digimon deletado com sucesso!',
+                        deletedCount: result,
                     });
                 }
                 catch (error) {
-                    console.error("Error", error);
-                    res.status(500).send({
-                        message: "Não foi possivel deletar o digimon"
+                    console.error('Error', error);
+                    return res.status(500).send({
+                        message: 'Não foi possivel deletar o digimon',
                     });
                 }
+            }
+            else {
+                return res.status(400).send({
+                    message: 'O id informado não foi encontrado.',
+                });
             }
         });
     }
