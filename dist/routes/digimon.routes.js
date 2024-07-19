@@ -175,7 +175,7 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Digimon'
+ *             $ref: '#/components/schemas/NewDigimon'
  *     responses:
  *       200:
  *         description: Digimon atualizado

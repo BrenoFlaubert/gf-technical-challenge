@@ -170,7 +170,7 @@ router.post('/', async (req: Request, res: Response) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Digimon'
+ *             $ref: '#/components/schemas/NewDigimon'
  *     responses:
  *       200:
  *         description: Digimon atualizado
